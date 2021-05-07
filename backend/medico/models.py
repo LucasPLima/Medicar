@@ -10,4 +10,4 @@ class Medico(models.Model):
     email = models.EmailField(max_length=100, null=True, blank=True)
     telefone = models.CharField(max_length= 13, null=True, blank=True)
     especialidade = models.ForeignKey(Especialidade, 
-                                      on_delete=models.DO_NOTHING)
+                                      on_delete=models.CASCADE)
