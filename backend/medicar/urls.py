@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework import routers
-from medico import views
+from medico import views as medico_views
+from agenda import views as agenda_views
 
 router = routers.DefaultRouter()
-router.register(r'especialidades', views.EspecialidadeViewSet)
-router.register(r'medicos', views.MedicoViewSet)
+router.register(r'especialidades', medico_views.EspecialidadeViewSet)
+router.register(r'medicos', medico_views.MedicoViewSet)
+router.register(r'agendas', agenda_views.AgendaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
