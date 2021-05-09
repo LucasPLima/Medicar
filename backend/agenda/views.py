@@ -5,5 +5,5 @@ from .serializers import AgendaSerializer
 
 # Create your views here.
 class AgendaViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Agenda.objects.all()
+    queryset = Agenda.objects.all().order_by('dia')
     serializer_class = AgendaSerializer
