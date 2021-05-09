@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Especialidade(models.Model):
@@ -15,5 +16,9 @@ class Medico(models.Model):
     especialidade = models.ForeignKey(Especialidade, 
                                       on_delete=models.CASCADE)
     
+    def clean(self):
+        if len(str(self.crm)) != 6:
+            raise ValidationError({'crm':'CRM deve conter 6 dígitos.'})
+
     def __str__(self):
         return f'{self.nome} - CRM: {self.crm} - {self.especialidade}'
