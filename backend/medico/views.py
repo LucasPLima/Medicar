@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from medico.models import Especialidade, Medico
-from medico.serializers import MedicoSerializer, EspecialidadeSerializer 
+from .models import Especialidade, Medico
+from .serializers import MedicoSerializer, EspecialidadeSerializer
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class EspecialidadeViewSet(viewsets.ReadOnlyModelViewSet):
@@ -11,3 +12,4 @@ class EspecialidadeViewSet(viewsets.ReadOnlyModelViewSet):
 class MedicoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Medico.objects.all()
     serializer_class = MedicoSerializer
+    permission_classes =[IsAuthenticated]
