@@ -9,6 +9,17 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'password':{'write_only': 'password'}
         }
     
+    def validate(self,data):
+        def validate_email(data):
+            try:
+                user = User.objects.get(email=data['email'])
+                raise serializers.ValidationError({'email':'A user with that email already exists!'})
+            except User.DoesNotExist:
+                pass
+
+        validate_email(data)
+        return data
+
     def save(self,):
         new_user = User(username=self.validated_data['username'], 
                         email=self.validated_data['email'],
