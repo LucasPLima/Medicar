@@ -7,7 +7,7 @@ class Especialidade(models.Model):
 class Medico(models.Model):
     nome = models.CharField(max_length= 150)
     crm = models.IntegerField(unique=True)
-    email = models.EmailField(max_length=100, null=True, blank=True)
+    email = models.EmailField(max_length=100, unique=True,null=True, blank=True)
     telefone = models.CharField(max_length= 13, null=True, blank=True)
     especialidade = models.ForeignKey(Especialidade, 
                                       on_delete=models.CASCADE)
