@@ -2,16 +2,20 @@ from django.db import models
 from django.utils import timezone
 
 from medico.models import Medico
-from medicar import settings
-from datetime import datetime, date
+from datetime import date
 from django.core.exceptions import ValidationError
+from .manager import AgendaCustomManager
 
 def format_date(date):
     return date.strftime('%d-%m-%Y')
+
 # Create your models here.
 class Agenda(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     dia = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
+    disponivel = models.BooleanField(default=True)
+
+    objects = AgendaCustomManager()
 
     def __str__(self):
         return f"Agenda {self.id} - {format_date(self.dia)} | Médico: {self.medico}"
@@ -46,4 +50,4 @@ class Horario(models.Model):
         validate_horario_value()
 
     def __str__(self):
-        return f"Horario: {self.hora} - ({format_date(self.agenda.dia)} - Médico: {self.agenda.medico.nome} | CRM: {self.agenda.medico.crm})"
+        return f"(Agenda {self.agenda.id}) Horario: {self.hora} - ({format_date(self.agenda.dia)} - Médico: {self.agenda.medico.nome} | CRM: {self.agenda.medico.crm})"
