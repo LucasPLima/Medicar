@@ -9,10 +9,10 @@ from datetime import date
 # Create your views here.
 class AgendaViewSet(viewsets.ReadOnlyModelViewSet):
     #.prefetch_related(Prefetch('horarios', queryset=Horario.objects.filter(marcado=False)))
-    queryset = Agenda.objects.prefetch_related(Prefetch
-                                                (
-                                                    'horarios', 
-                                                    queryset=Horario.objects.filter(marcado=False))
+    queryset = Agenda.objects.disponiveis().prefetch_related(
+                                            Prefetch
+                                                ('horarios', 
+                                                  queryset=Horario.objects.disponiveis())
                                                 ).all()
     serializer_class = AgendaSerializer
     permission_classes = [IsAuthenticated]

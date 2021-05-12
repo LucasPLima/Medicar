@@ -4,7 +4,7 @@ from django.utils import timezone
 from medico.models import Medico
 from datetime import date
 from django.core.exceptions import ValidationError
-from .manager import AgendaCustomManager
+from .manager import AgendaCustomManager, HorarioCustomManager
 
 def format_date(date):
     return date.strftime('%d-%m-%Y')
@@ -14,7 +14,6 @@ class Agenda(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     dia = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
     disponivel = models.BooleanField(default=True)
-
     objects = AgendaCustomManager()
 
     def __str__(self):
@@ -33,12 +32,14 @@ class Agenda(models.Model):
                 pass
 
         validate_data()
-        validate_agenda_medico()
+        if self.id == None:
+            validate_agenda_medico()
 
 class Horario(models.Model):
     agenda = models.ForeignKey(Agenda, related_name='horarios', on_delete=models.CASCADE)
     hora = models.TimeField(auto_now=False, auto_now_add=False)
     marcado = models.BooleanField(default=False)
+    objects = HorarioCustomManager()
 
     def clean(self):
         def validate_horario_value():

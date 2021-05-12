@@ -1,6 +1,25 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
+from django.utils import timezone
+from django.db.models import  Q
 
 class AgendaCustomManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(dia__gte=date.today(), disponivel=True).order_by('dia')
+    def disponiveis(self):
+        return super().get_queryset().filter(dia__gte=date.today(), 
+                                             disponivel=True).order_by('dia')
+
+class HorarioCustomManager(models.Manager):
+    def disponiveis(self):
+        hora_atual = timezone.now()
+        hora_padrao = datetime.strptime('00:30', '%H:%M')
+        
+        return super().get_queryset().filter(
+                                (
+                                  Q(agenda__dia=date.today(), 
+                                   hora__gte=hora_atual) 
+                                  | Q(agenda__dia__gt=date.today(),
+                                    hora__gte=hora_padrao)
+                                ), 
+                                marcado=False
+                                )
+                                
