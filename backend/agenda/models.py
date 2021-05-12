@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from medico.models import Medico
-from datetime import date
+from datetime import date, datetime
 from django.core.exceptions import ValidationError
 from .manager import AgendaCustomManager, HorarioCustomManager
 
@@ -32,8 +32,7 @@ class Agenda(models.Model):
                 pass
 
         validate_data()
-        if self.id == None:
-            validate_agenda_medico()
+        validate_agenda_medico()
 
 class Horario(models.Model):
     agenda = models.ForeignKey(Agenda, related_name='horarios', on_delete=models.CASCADE)
@@ -42,13 +41,22 @@ class Horario(models.Model):
     objects = HorarioCustomManager()
 
     def clean(self):
-        def validate_horario_value():
+        def validate_horario_exists():
             try:
                 horario = Horario.objects.filter(agenda=self.agenda, hora=self.hora).get()
                 raise ValidationError({'hora':'Agenda já contém hora informada.'})
             except Horario.DoesNotExist:
                 pass
-        validate_horario_value()
+
+        def validate_horario_dia_atual():
+            if self.agenda.dia == date.today():
+                if self.hora < datetime.time(timezone.now()):
+                    print(timezone.now())
+                    raise ValidationError({'hora':'Horário informado deve ser maior que a hora atual.'})
+
+        validate_horario_dia_atual()
+        validate_horario_exists()
+        
 
     def __str__(self):
         return f"(Agenda {self.agenda.id}) Horario: {self.hora} - ({format_date(self.agenda.dia)} - Médico: {self.agenda.medico.nome} | CRM: {self.agenda.medico.crm})"
