@@ -9,7 +9,9 @@ from rest_framework import serializers
 
 class ConsultaSerializer(serializers.ModelSerializer):
     medico = MedicoSerializer()
-
+    dia =  serializers.DateField(source='agenda.dia', format='%d/%m/%Y')
+    horario = serializers.TimeField(source='horario.hora')
+    data_agendamento = serializers.DateField(format='%d/%m/%Y')
     class Meta:
         model = Consulta
         fields = ['id','dia','horario','data_agendamento','medico']
@@ -43,16 +45,16 @@ class ConsultaPostSerializer(serializers.Serializer):
 
     def save(self):
         agenda_id = self.validated_data['agenda_id']
-        horario = self.validated_data['horario']
+        horario_req = self.validated_data['horario']
         
         agenda = Agenda.objects.get(id=agenda_id)
         medico = agenda.medico
-        dia = agenda.dia
+        
+        horario = Horario.objects.get(agenda__id=agenda_id, hora=horario_req)
+        usuario = User.objects.get(username=self.context['request'].user)
 
-        usuario= User.objects.get(username=self.context['request'].user)
-
-        consulta= Consulta(dia=dia, horario=horario, medico=medico, usuario=usuario)
-        up = Horario.objects.filter(agenda__id=agenda_id, hora=horario).update(marcado=True)
+        consulta= Consulta(agenda=agenda, horario=horario, medico=medico, usuario=usuario)
+        up = Horario.objects.filter(pk=horario.id).update(marcado=True)
         consulta.save()
         
         return consulta
