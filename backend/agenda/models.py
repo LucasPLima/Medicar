@@ -13,7 +13,6 @@ def format_date(date):
 class Agenda(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     dia = models.DateField(auto_now=False, auto_now_add=False, default=timezone.now)
-    disponivel = models.BooleanField(default=True)
     objects = AgendaCustomManager()
 
     def __str__(self):
