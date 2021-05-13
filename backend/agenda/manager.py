@@ -9,7 +9,7 @@ class AgendaCustomManager(models.Manager):
 
 class HorarioCustomManager(models.Manager):
     def disponiveis(self):
-        hora_atual = timezone.now()
+        hora_atual = timezone.localtime(timezone.now())
         hora_padrao = datetime.strptime('00:00', '%H:%M')
         
         return super().get_queryset().filter(
