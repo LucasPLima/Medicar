@@ -1,7 +1,8 @@
 from .models import Consulta
 from usuario.models import User
 from agenda.models import Agenda, Horario
-from datetime import date
+from datetime import date, datetime
+from django.utils import timezone
 
 from medico.serializers import MedicoSerializer
 from rest_framework import serializers
@@ -60,6 +61,23 @@ class ConsultaPostSerializer(serializers.Serializer):
         return consulta
 
 
-        
+class ConsultaDestroySerializer(serializers.Serializer):
+    consulta_id = serializers.IntegerField()
+
+    def validate(self, data):
+        try:
+            horario_atual = datetime.now().time()
+            consulta = Consulta.objects.get(pk=data['consulta_id'], usuario__username=self.context['request'].user)
+
+            if consulta.agenda.dia == date.today():
+                if consulta.horario.hora < horario_atual:
+                    raise serializers.ValidationError({'consulta':'Não é possível desmarcar uma consulta que já aconteceu!'})
+            elif  consulta.agenda.dia < date.today():
+                raise serializers.ValidationError({'consulta':'Não é possível desmarcar uma consulta que já aconteceu!'})
+
+            return data    
+
+        except Consulta.DoesNotExist:
+            raise serializers.ValidationError({'consulta':'Consulta inexistente ou não cadastrada para este usuário!'})
         
 

@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from django.forms.models import model_to_dict
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.utils import timezone
 
-from .models import Consulta
-from .serializers import ConsultaSerializer, ConsultaPostSerializer
+from .models import Consulta, Horario
+from .serializers import ConsultaSerializer, ConsultaPostSerializer, ConsultaDestroySerializer
 
 # Create your views here.
 class ConsultaViewSet(viewsets.ViewSet):
@@ -29,3 +28,19 @@ class ConsultaViewSet(viewsets.ViewSet):
 
         return Response(data=data)
 
+    def destroy(self, request, pk):
+        data = {}
+        data['consulta_id'] = pk
+        serializer = ConsultaDestroySerializer(data=data, context={'request': request})
+
+        data = {}
+        if serializer.is_valid():
+            consulta_id = pk
+            consulta = Consulta.objects.get(pk=consulta_id, usuario__username= request.user)
+        
+            up = Horario.objects.filter(pk=consulta.horario.id).update(marcado=False)
+            consulta.delete()
+        else:
+            data = serializer.errors
+
+        return Response(data)
