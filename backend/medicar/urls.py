@@ -21,7 +21,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from medico.views import MedicoViewSet, EspecialidadeViewSet
 from agenda.views import AgendaViewSet
-from usuario.views import UserRegistrationAPIView
+from usuario.views import UserRegistrationAPIView, CustomAuthToken
 from consulta.views import ConsultaViewSet
 
 
@@ -34,7 +34,7 @@ router.register(r'consultas', ConsultaViewSet, basename="consultas")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', obtain_auth_token),
+    path('login/', CustomAuthToken.as_view()),
     path('registrar/', UserRegistrationAPIView.as_view()),
     path('', include(router.urls))
 ]
