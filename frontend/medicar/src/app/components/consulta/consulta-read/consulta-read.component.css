@@ -1,0 +1,22 @@
+a {
+  text-decoration: none;
+}
+
+mat-card {
+  max-width: 600px;
+  margin: 2em auto;
+  text-align: center;
+}
+mat-card-title{
+  display: flexbox;
+  flex-direction: column;
+}
+mat-card-title h3{
+  justify-content: flex-start;
+}
+mat-card-title button{
+  justify-content: flex-end;
+}
+.full-width-table {
+  width: 100%;
+}

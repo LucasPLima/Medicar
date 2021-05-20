@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToRegister():void{
-    this.router.navigate(['/register']);
+    this.router.navigate(['/registrar']);
+  }
+
+  redirectToConsultas():void{
+    this.router.navigate(['/consultas']);
   }
   
 }

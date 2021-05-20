@@ -13,13 +13,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/user/login/login.component';
 import { SimpleHeaderComponent } from './components/template/simple-header/simple-header.component';
 import { CreateComponent } from './components/user/create/create.component';
+import { ConsultaReadComponent } from './components/consulta/consulta-read/consulta-read.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SimpleHeaderComponent,
-    CreateComponent
+    CreateComponent,
+    ConsultaReadComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,10 @@ import { CreateComponent } from './components/user/create/create.component';
     FormsModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
