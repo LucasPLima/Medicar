@@ -1,28 +1,27 @@
-<mat-card>
+<mat-card class="mat-elevation-z0">
     <mat-card-content>
+        <app-simple-header></app-simple-header>
         <form>
-                <app-simple-header></app-simple-header>
-                <mat-form-field appearance="fill">
-                    <mat-label>Login</mat-label>
-                    <input placeholder="Login" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <input placeholder="Senha" matInput [type]="inputType()">
-                    <button 
-                        mat-icon-button 
-                        matSuffix 
-                        (click)="hidePassword()" 
-                        [attr.aria-label]="'Hide password'" 
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
+            <input placeholder="Login" matInput>
+            <mat-form-field class="mat-form-field-wrapper" appearance="fill">
+                <input placeholder="Senha" matInput [type]="inputType()">
+                <button 
+                    mat-icon-button 
+                    matSuffix 
+                    (click)="hidePassword()" 
+                    [attr.aria-label]="'Hide password'" 
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
         </form>
-        <button mat-flat-button class="secondary" (click)="redirectToRegister()">
-            Criar conta
-        </button>
-        <button mat-flat-button class="primary" (click)="redirectToConsultas()">
-            Acessar
-        </button>
+        <div class="buttons">
+            <button mat-flat-button class="secondary" (click)="redirectToRegister()">
+                Criar conta
+            </button>
+            <button mat-flat-button class="primary" (click)="redirectToConsultas()">
+                Acessar
+            </button>
+        </div>
    </mat-card-content>
 </mat-card>
