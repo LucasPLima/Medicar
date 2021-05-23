@@ -2,9 +2,11 @@
     <mat-card-content>
         <app-simple-header></app-simple-header>
         <form>
-            <input placeholder="Login" matInput>
-            <mat-form-field class="mat-form-field-wrapper" appearance="fill">
-                <input placeholder="Senha" matInput [type]="inputType()">
+            <mat-form-field>
+                <input [(ngModel)]="userLogin.username" name="username" placeholder="Login" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <input [(ngModel)]="userLogin.password" name="password" placeholder="Senha" matInput [type]="inputType()">
                 <button 
                     mat-icon-button 
                     matSuffix 
@@ -19,7 +21,7 @@
             <button mat-flat-button class="secondary" (click)="redirectToRegister()">
                 Criar conta
             </button>
-            <button mat-flat-button class="primary" (click)="redirectToConsultas()">
+            <button mat-flat-button class="primary" (click)="login()">
                 Acessar
             </button>
         </div>

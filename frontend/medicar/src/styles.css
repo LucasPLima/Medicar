@@ -8,6 +8,12 @@ html, body {
 }
 body {  font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.mat-form-field-wrapper {
+    margin-top: -1.25em;
+    margin-bottom: -1.25em;
+
+}
+
 .primary {
     background-color: #49B4BB;
     color: #fff;
@@ -16,4 +22,24 @@ body {  font-family: Roboto, "Helvetica Neue", sans-serif; }
 .secondary {
     color: #49B4BB;
     background-color: #fff;
+}
+
+.msg-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.msg-warning {
+    background-color: #e3df34;
+    color: #fff;
+}
+
+.msg-error {
+    background-color: #e35e6b;
+    color: #fff;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button {
+    color: antiquewhite;
+    background: transparent;
 }
