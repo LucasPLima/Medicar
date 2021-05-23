@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import { ConsultaReadComponent } from './components/consulta/consulta-read/consulta-read.component';
 import { CreateComponent } from './components/user/create/create.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -15,9 +16,11 @@ const routes: Routes = [
   },
   {
     path:"consultas",
-    component: ConsultaReadComponent
+    component: ConsultaReadComponent,
+    canActivate: [AuthGuard]
   },
   
+  { path: "", redirectTo: "login", pathMatch:"full"}
 ];
 
 @NgModule({
