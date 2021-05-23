@@ -1,3 +1,10 @@
+
+span {
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 mat-card {
     margin: 2em auto;
     height: 80vh;
