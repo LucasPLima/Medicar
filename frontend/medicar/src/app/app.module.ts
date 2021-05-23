@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from  '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'
+import { HttpClientModule } from  '@angular/common/http';
+import { MatSnackBarModule } from  '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,8 +17,8 @@ import { SimpleHeaderComponent } from './components/template/simple-header/simpl
 import { CreateComponent } from './components/user/create/create.component';
 import { ConsultaReadComponent } from './components/consulta/consulta-read/consulta-read.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
     LoginComponent,
     SimpleHeaderComponent,
     CreateComponent,
-    ConsultaReadComponent
+    ConsultaReadComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,10 +38,13 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    HttpClientModule,
+    MatSnackBarModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
