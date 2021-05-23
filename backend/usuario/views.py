@@ -11,7 +11,7 @@ class UserRegistrationAPIView(APIView):
         serializer = UserRegistrationSerializer(data=request.data)
         data = {}
         
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             new_user = serializer.save()
             data['username'] = new_user.username
             data['email'] = new_user.email

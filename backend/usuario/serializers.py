@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User
-
+from rest_framework import exceptions
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -13,7 +13,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         def validate_email(data):
             try:
                 user = User.objects.get(email=data['email'])
-                raise serializers.ValidationError({'email':'A user with that email already exists!'})
+                raise serializers.ValidationError({'email':'Email já cadastrado!'})
             except User.DoesNotExist:
                 pass
 
