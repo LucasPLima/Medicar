@@ -1,0 +1,37 @@
+
+span {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+mat-card-content {
+    display: grid;
+    max-width: 400px;
+}
+
+form { 
+    display: flex;
+    flex-direction: column;
+}
+
+form mat-form-field {
+    width: 400px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button {
+    width: 45%;
+}
+
+button:hover{
+    background-color: #D9F1F3;
+    color: #49B4BB;
+}
+

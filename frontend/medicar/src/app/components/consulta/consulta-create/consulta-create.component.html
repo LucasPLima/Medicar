@@ -1,0 +1,56 @@
+<mat-card class="mat-elevation-z0">
+    <mat-card-title>
+        <span>Nova Consulta</span>
+    </mat-card-title>
+    
+    <mat-card-content>
+        <form>
+            <mat-form-field appearance="fill">
+                <mat-label>Especialidade</mat-label>
+                <mat-select [(value)]="consultaForm.especialidade_id" (selectionChange)="getMedicosByEspecialidade()">
+
+                    <mat-option *ngFor="let especialidade of especialidades" [value]="especialidade.id"> 
+                        {{especialidade.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Médico</mat-label>
+                <mat-select [disabled]="medicos.length===0" [(value)]="consultaForm.medico_id" (selectionChange)="getMedicoAgendas()">
+                    <mat-option *ngFor="let medico of medicos" [value]="medico.id"> 
+                        {{medico.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Data</mat-label>
+                <mat-select [disabled]="agendas.length===0" [(value)]="consultaForm.agenda_id" (selectionChange)="getAgendaHorarios()">
+                    <mat-option *ngFor="let agenda of agendas" [value]="agenda.id"> 
+                        {{agenda.dia}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Hora</mat-label>
+                <mat-select [disabled]="horarios.length===0" [(value)]="consultaForm.hora">
+                    <mat-option *ngFor="let hora of horarios" [value]="hora"> 
+                        {{hora}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div class="buttons">
+            <button mat-flat-button class="secondary" (click)="onCancelClick()" >
+                Cancelar
+            </button>
+            <button [disabled]="consultaForm.hora.length===0" mat-flat-button class="primary" (click)="createConsulta()">
+                Confirmar
+            </button>
+        </div>
+    </mat-card-content>
+
+</mat-card>

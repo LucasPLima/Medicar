@@ -18,6 +18,9 @@ import { CreateComponent } from './components/user/create/create.component';
 import { ConsultaReadComponent } from './components/consulta/consulta-read/consulta-read.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { ConsultaCreateComponent } from './components/consulta/consulta-create/consulta-create.component';
 
 
 @NgModule({
@@ -27,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     SimpleHeaderComponent,
     CreateComponent,
     ConsultaReadComponent,
+    ConsultaCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     
