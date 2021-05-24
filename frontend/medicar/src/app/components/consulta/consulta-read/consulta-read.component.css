@@ -35,3 +35,12 @@ mat-card-title button{
 .full-width-table {
   width: 100%;
 }
+
+.action{
+  background-color: transparent;
+  border: 0px;
+}
+
+.action:hover{
+  background-color: #D9F1F3;
+}

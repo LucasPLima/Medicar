@@ -1,30 +1,52 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { ConsultaReadDataSource, ConsultaReadItem } from './consulta-read-datasource';
+import { Component, OnInit, } from '@angular/core';
+
+import { AuthService } from 'src/app/auth/auth.service';
+import { ConsultaItem } from '../consulta-item.model';
+import { Consulta } from '../consulta.model';
+
+import { ConsultaService } from '../consulta.service';
+
 
 @Component({
   selector: 'app-consulta-read',
   templateUrl: './consulta-read.component.html',
   styleUrls: ['./consulta-read.component.css']
 })
-export class ConsultaReadComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<ConsultaReadItem>;
-  dataSource: ConsultaReadDataSource;
+export class ConsultaReadComponent implements OnInit {
+  consultas: ConsultaItem[] = []
+  userFullname:string=""
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['especialidade', 'profissional','data','hora','action'];
 
-  constructor() {
-    this.dataSource = new ConsultaReadDataSource();
+  constructor(private authService: AuthService,
+              private consultaService: ConsultaService) {}
+
+  ngOnInit(){
+    this.userFullname = this.authService.getUserName()
+    this.consultaService.list().subscribe(
+      (consultas)=>{
+        console.log(consultas)
+        this.consultas = consultas.map((consulta)=>this.consultaToItem(consulta)) 
+      }
+    )
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  private consultaToItem(consulta:Consulta):ConsultaItem{
+    return {
+              id: consulta.id.toString(),
+              data: consulta.dia,
+              especialidade: consulta.medico.especialidade.nome,
+              hora: consulta.horario,
+              profissional: consulta.medico.nome
+           }
   }
+  
+  deletarConsulta(id:string){
+    console.log(id)
+  }
+
+  openConsultaCreateDialog():void{
+
+  }
+  
 }
