@@ -1,5 +1,5 @@
 export interface ConsultaItem{
-    id?:string
+    id?:number
     especialidade:string
     profissional:string
     data:string
