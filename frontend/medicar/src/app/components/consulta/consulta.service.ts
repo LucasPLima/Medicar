@@ -80,4 +80,14 @@ export class ConsultaService {
                             )
   }
 
+  deleteConsultaById(consulta_id:number):Observable<any>{
+    return this.http.delete(`${environment.apiURL}/consultas/${consulta_id}`,
+                            {headers:{"Authorization":`Token ${this.authService.getToken()}` }})
+                            .pipe(
+                              map((obj)=>obj),
+                              catchError((e)=>this.errorHandler(e))
+                            )
+  }
+
+
 }
