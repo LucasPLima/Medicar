@@ -16,7 +16,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'email':'Email já cadastrado!'})
             except User.DoesNotExist:
                 pass
-
+        def validate_name(data):
+            if len(data['first_name']) == 0:
+                raise serializers.ValidationError({'nome':'O campo não pode estar em branco!'})
+            elif len(data['last_name']) == 0:
+                raise serializers.ValidationError({'sobrenome':'O campo não pode estar em branco!'})
+        
+        validate_name(data)
         validate_email(data)
         return data
 
