@@ -7,8 +7,8 @@ import { UserAuth } from '../components/user/user-auth.model';
 })
 export class AuthService {
   private userInfo: UserAuth = {
-    name: "Lucas Lima",
-    token:"0de0251f16b69509ff1f57015d85d1b45e07d611"
+    name: "",
+    token:""
   };
 
   constructor() { 

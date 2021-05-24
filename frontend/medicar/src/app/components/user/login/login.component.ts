@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/util/notification.service';
-import { UserAuth } from '../user-auth.model';
 import { UserLogin } from '../user-login.model';
 import { UserService } from '../user.service';
 
@@ -15,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   public userLogin: UserLogin =
   {
-    username:'luquinha7',
-    password:'123456'
+    username:'',
+    password:''
   }
 
   hide = true;
@@ -48,7 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log(this.userLogin)
     this.userService.login(this.userLogin).subscribe(
       response => {
         this.authService.setUserInfo(response)

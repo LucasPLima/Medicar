@@ -29,7 +29,6 @@ export class ConsultaService {
       const errorObject = Object.keys(responseError)[0]
       const messageError= responseError[errorObject][0]
       this.notificationService.showWarningMsg(messageError)
-      //message.dismiss()
     }else{
       this.notificationService.showErrorMsg("Erro de comunicação com o servidor.")
     }

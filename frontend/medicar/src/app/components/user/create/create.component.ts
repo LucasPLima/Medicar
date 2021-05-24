@@ -14,11 +14,11 @@ export class CreateComponent implements OnInit {
   
   userRegister: UserRegister = 
      {
-       first_name:"lucas",
-       last_name:"llluuuu",
-       email:"lu@quinha.com",
-       password:"123456",
-       username:"luquinha"
+       first_name:"",
+       last_name:"",
+       email:"",
+       password:"",
+       username:""
      };
 
      createForm = new FormGroup(
@@ -58,7 +58,6 @@ export class CreateComponent implements OnInit {
   createAccount(){
     this.userService.create(this.userRegister).subscribe(
       response => {
-        console.log(response)
         this.notificationService.showSuccessMsg(`Usuário ${response.username} criado com sucesso.`)
         this.redirectToLogin()
       }
