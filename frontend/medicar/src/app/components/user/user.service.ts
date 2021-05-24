@@ -30,10 +30,9 @@ export class UserService {
       const responseError = e.error
       const errorObject = Object.keys(responseError)[0]
       const messageError= responseError[errorObject][0]
-      this.notificationService.showWarningMsg(messageError)
-      //message.dismiss()
+      this.notificationService.showWarningMsg(`${messageError} (${errorObject})`)
     }else{
-
+      this.notificationService.showErrorMsg("Erro de comunicação com o servidor.")
     }
     
     return EMPTY;

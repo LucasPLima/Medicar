@@ -6,25 +6,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NotificationService {
 
-  constructor(private snackBar: MatSnackBar, 
-              private zone: NgZone){ }
+  constructor(private snackBar: MatSnackBar){ }
 
   private showMessage(textMsg:string, msgType:string):void{
-    this.zone.run(()=>{
-                        const snackBar = this.snackBar.open(
-                          textMsg, "X",{
+     const snackBarRef =this.snackBar.open(textMsg,'X',{
                             duration: 2000,
                             horizontalPosition:"center",
                             verticalPosition:"top",
                             panelClass:[msgType]
                           }
                         )
-                        snackBar.onAction().subscribe(() => {
-                          console.log("MACHO")
-                          snackBar.dismiss();
-                        })
-                      }
-                  )
+    snackBarRef.onAction().subscribe(
+      (action)=>snackBarRef.dismiss()
+    )
   }
 
   showSuccessMsg(textMsg:string):void{
