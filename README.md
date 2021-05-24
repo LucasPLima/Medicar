@@ -75,8 +75,38 @@ A única mudança feita foi realizada no ato de criar um usuário. A rota contin
  Ao ser publicada no  [Heroku](https://www.heroku.com/), as validações de fuso horário podem apresentar um problema, devido a localização do servidor ser nos Estados Unidos. Para os testes com a API publicada, deve-se levar em conta a diferença de **+3 horas** em relação ao nosso horário local.
 
 
-## Frontend (Em construção)
+## Frontend - Angular
 
-![](https://image.flaticon.com/icons/png/128/2973/2973702.png)
+O frontend da aplicação foi desenvolvido seguindo as especificações listadas neste [link](https://github.com/Intmed-Software/desafio/tree/master/frontend).
+
+A aplicação conta com as ações de:
+ - Criação de usuário;
+ - Login na aplicação;
+ - Visualização de consultas marcadas;
+ - Criação e exclusão de consultas.
+
+O projeto não foi publicado, portanto deve ser rodado localmente.
+
+### Executando a aplicação localmente
+Após realizar o clone do projeto, entre na diretório"*frontend/medicar*" e execute os comandos abaixo:
+
+    # Se você utiliza yarn
+    yarn install
+    
+    # Se você utiliza npm
+    npm install
+	
+	# Após baixar as dependências, execute o projeto
+	yarn start
+	#ou
+	npm run start
+
+A aplicação irá rodar na porta **4200** e irá se comunicar com a API na porta **8000** (porta padrão do Django REST).
+
+### Observações
+
+- Diferente da referência para a criação do frontend, durante o login do usuário só poderá ser utilizado o **username**.
+- Na criação de usuário foram incluídas duas informações para identificação do usuário, "Nome" e "Sobrenome".
+
 
 > Written with [StackEdit](https://stackedit.io/).
