@@ -16,31 +16,31 @@ O projeto contém duas pastas para separar a estrutura da aplicação: *backend*
  - Python 3 instalado.
  
 #### Instruções
+
 Após baixar o projeto, entre na pasta **backend** e execute os seguintes comandos:
 
-      #cria o ambiente virtual
-      python -m venv env
-	  
-	  #ativa o ambiente (Linux)
-	  source env/bin/activate
-	  #ativa o ambinente (Windows - Powershell)
-	  .\env\Scripts\activate
-	  
-	  #instale as dependências (Windows - Powershell)
-	  python -m pip install -r requirements.txt
-	  
-	  #instale as dependências (Linux)
-	  pip install -r requirements.txt
-	  
-	  #Django - Rodando o projeto (Windows - Powershell)
-	  py .\manage.py makemigrations
-	  py .\manage.py migrate
-	  py .\manage.py runserver
-	  
-	  #Django - Rodando o projeto (Linux)
-	  py manage.py makemigrations
-	  py manage.py migrate
-	  py manage.py runserver
+    #Cria o ambiente virtual
+    python -m venv env
+    
+    #Ativa o ambiente virtual
+    .\env\Scripts\activate
+    
+    #Instale as dependências
+    python -m pip install -r requirements.txt
+    
+    #Django - Executa as migrations 
+    py .\manage.py migrate
+	
+	#Opcional - Populando o banco
+    py .\manage.py loaddata fixtures/initial_data.json
+    
+    #Django - Roda o servidor
+    py .\manage.py runserver
+    
+    
+    
+> Caso utilize o comando opcional de popular o banco com dados iniciais, a fixture já cria um super usuário, 2 especialidades, 4 médicos, 4 agendas (uma para cada médico) e 3 horários para cada agenda.
+> As credenciais do superusuário são:  admin/admin.
 	
   ### Aplicação publicada
   
