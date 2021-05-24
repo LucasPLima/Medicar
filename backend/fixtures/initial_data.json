@@ -1,0 +1,212 @@
+[{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$ESji7rVH9L3Y6b1uZpaWq5$+SpussuhScXmKxGASHPg98UZgtpz5OpvpWkYSdH5qGk=",
+        "last_login": "2021-05-22T22:34:45.847Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com.br",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-05-22T22:34:38.648Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}, 
+{
+    "model": "medico.especialidade",
+    "pk": 1,
+    "fields": {
+        "nome": "CLÍNICO GERAL"
+    }
+}, {
+    "model": "medico.especialidade",
+    "pk": 2,
+    "fields": {
+        "nome": "CIRURGIÃO"
+    }
+}, {
+    "model": "medico.medico",
+    "pk": 1,
+    "fields": {
+        "nome": "Doctor DRE",
+        "crm": 890022,
+        "email": "drethedoctor@gmail.com",
+        "telefone": "8766223312",
+        "especialidade": 2
+    }
+}, {
+    "model": "medico.medico",
+    "pk": 2,
+    "fields": {
+        "nome": "Hans Chucrute",
+        "crm": 891223,
+        "email": "chamando.drHans@gmail.com",
+        "telefone": "8766223345",
+        "especialidade": 2
+    }
+}, {
+    "model": "medico.medico",
+    "pk": 3,
+    "fields": {
+        "nome": "Tobaias Silveira",
+        "crm": 896445,
+        "email": "tobias@gmail.com",
+        "telefone": "8756244568",
+        "especialidade": 1
+    }
+}, {
+    "model": "medico.medico",
+    "pk": 4,
+    "fields": {
+        "nome": "Juniores Júnior",
+        "crm": 653771,
+        "email": "junioresthegreat@gmail.com",
+        "telefone": "8688762441",
+        "especialidade": 1
+    }
+},
+{
+    "model": "agenda.agenda",
+    "pk": 1,
+    "fields": {
+        "medico": 1,
+        "dia": "2021-05-25"
+    }
+},
+{
+    "model": "agenda.agenda",
+    "pk": 2,
+    "fields": {
+        "medico": 2,
+        "dia": "2021-05-25"
+    }
+},
+{
+    "model": "agenda.agenda",
+    "pk": 3,
+    "fields": {
+        "medico": 3,
+        "dia": "2021-05-25"
+    }
+},
+{
+    "model": "agenda.agenda",
+    "pk": 4,
+    "fields": {
+        "medico": 4,
+        "dia": "2021-05-25"
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 1,
+    "fields": {
+        "agenda": 1,
+        "hora": "08:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 2,
+    "fields": {
+        "agenda": 1,
+        "hora": "09:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 3,
+    "fields": {
+        "agenda": 1,
+        "hora": "10:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 4,
+    "fields": {
+        "agenda": 2,
+        "hora": "08:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 5,
+    "fields": {
+        "agenda": 2,
+        "hora": "09:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 6,
+    "fields": {
+        "agenda": 2,
+        "hora": "10:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 7,
+    "fields": {
+        "agenda": 3,
+        "hora": "08:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 8,
+    "fields": {
+        "agenda": 3,
+        "hora": "09:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 9,
+    "fields": {
+        "agenda": 3,
+        "hora": "10:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 10,
+    "fields": {
+        "agenda": 4,
+        "hora": "08:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 11,
+    "fields": {
+        "agenda": 4,
+        "hora": "09:00",
+        "marcado": false
+    }
+},
+{
+    "model": "agenda.horario",
+    "pk": 12,
+    "fields": {
+        "agenda": 4,
+        "hora": "10:00",
+        "marcado": false
+    }
+}
+]
