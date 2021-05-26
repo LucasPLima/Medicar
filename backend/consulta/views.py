@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
@@ -26,7 +26,7 @@ class ConsultaViewSet(viewsets.ViewSet):
         else:
             data = serializer.errors
 
-        return Response(data=data)
+        return Response(data=data, status= status.HTTP_201_CREATED)
 
     def destroy(self, request, pk):
         data = {}
@@ -43,4 +43,4 @@ class ConsultaViewSet(viewsets.ViewSet):
         else:
             data = serializer.errors
 
-        return Response(data)
+        return Response(data, status= status.HTTP_204_NO_CONTENT) 
