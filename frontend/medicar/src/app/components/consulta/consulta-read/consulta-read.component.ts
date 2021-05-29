@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/util/notification.service';
 import { ConsultaCreateComponent } from '../consulta-create/consulta-create.component';
+import { ConsultaDeleteComponent } from '../consulta-delete/consulta-delete.component';
 import { ConsultaItem } from '../consulta-item.model';
 import { Consulta } from '../consulta.model';
 
@@ -52,9 +53,12 @@ export class ConsultaReadComponent implements OnInit {
   }
   
   deletarConsulta(id:number){
-    this.consultaService.deleteConsultaById(id).subscribe(
-      (result) => {
-        this.notificationService.showSuccessMsg('Consulta deletada com sucesso.')
+    const dialogRef = this.matDialog.open(ConsultaDeleteComponent,
+      {
+        data:{consulta_id: id}
+      })
+    dialogRef.afterClosed().subscribe(
+      (result)=>{
         this.getConsultasList()
       }
     )

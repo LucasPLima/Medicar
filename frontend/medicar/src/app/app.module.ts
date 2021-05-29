@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { ConsultaCreateComponent } from './components/consulta/consulta-create/consulta-create.component';
+import { ConsultaDeleteComponent } from './components/consulta/consulta-delete/consulta-delete.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ConsultaCreateComponent } from './components/consulta/consulta-create/c
     SimpleHeaderComponent,
     CreateComponent,
     ConsultaReadComponent,
-    ConsultaCreateComponent
+    ConsultaCreateComponent,
+    ConsultaDeleteComponent
   ],
   imports: [
     BrowserModule,

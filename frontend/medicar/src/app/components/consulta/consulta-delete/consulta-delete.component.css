@@ -1,0 +1,11 @@
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button:hover{
+    background-color: #D9F1F3;
+    color: #49B4BB;
+}
