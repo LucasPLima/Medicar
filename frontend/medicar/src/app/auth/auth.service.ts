@@ -6,30 +6,32 @@ import { UserAuth } from '../components/user/user-auth.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private userInfo: UserAuth = {
-    name: "",
-    token:""
-  };
-
   constructor() { 
-
   }
 
   setUserInfo(userInfo:UserAuth){
-    this.userInfo = userInfo
+    localStorage.setItem('name',userInfo.name)
+    localStorage.setItem('token', userInfo.token)
+    
   }
 
   getUserName():string{
-    return this.userInfo.name
+    const name = localStorage.getItem('name')
+    return name!==null? name : ''
   }
 
   getToken(): String {
-    return this.userInfo.token
+    const token = localStorage.getItem('token')
+    return token!==null? token : ''
+  }
+
+  logout():void{
+    localStorage.clear()
   }
 
   isAuthenticated(): boolean{
-    if (this.userInfo.token.length === 0)
-      return false
-    return true
+    if (localStorage.getItem('token') !== null)
+      return true
+    return false
   }
 }
