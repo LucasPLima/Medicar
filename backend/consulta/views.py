@@ -34,7 +34,7 @@ class ConsultaViewSet(viewsets.ViewSet):
         serializer = ConsultaDestroySerializer(data=data, context={'request': request})
 
         data = {}
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             consulta_id = pk
             consulta = Consulta.objects.get(pk=consulta_id, usuario__username= request.user)
         
