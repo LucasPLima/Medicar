@@ -20,5 +20,5 @@ class HorarioCustomManager(models.Manager):
                                     hora__gte=hora_padrao)
                                 ), 
                                 marcado=False
-                                )
+                                ).order_by('hora')
                                 
