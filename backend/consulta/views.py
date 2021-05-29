@@ -11,7 +11,7 @@ class ConsultaViewSet(viewsets.ViewSet):
     permission_classes=[IsAuthenticated]
 
     def list(self, request):    
-        queryset = Consulta.objects.filter(usuario__username=request.user)
+        queryset = Consulta.objects.filter(usuario__username=request.user).order_by('-id')
         serializer = ConsultaSerializer(queryset, many=True)
         return Response(serializer.data)
     
