@@ -49,7 +49,7 @@ class Horario(models.Model):
 
         def validate_horario_dia_atual():
             if self.agenda.dia == date.today():
-                if self.hora < datetime.time(timezone.now()):
+                if self.hora < timezone.localtime(timezone.now()).time():
                     print(timezone.now())
                     raise ValidationError({'hora':'Horário informado deve ser maior que a hora atual.'})
 
