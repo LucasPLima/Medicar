@@ -37,7 +37,7 @@ class ConsultaPostSerializer(serializers.Serializer):
                 agenda = Agenda.objects.get(id=data['agenda_id'])
                 horario = Horario.objects.get(agenda__id=data['agenda_id'], hora=data['horario'])
                 
-                if agenda.dia == date.today() & horario.hora < timezone.localtime(timezone.now()):
+                if (agenda.dia == date.today()) & (horario.hora < timezone.localtime(timezone.now()).time()):
                     raise serializers.ValidationError({'horario':'Horário solicitado menor do que o horário atual!'})    
                 if horario.marcado == True:
                     raise serializers.ValidationError({'horario':'Horário solicitado já foi marcado!'})    
