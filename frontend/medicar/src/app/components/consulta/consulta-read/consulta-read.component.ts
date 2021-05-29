@@ -1,5 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/util/notification.service';
@@ -24,7 +25,8 @@ export class ConsultaReadComponent implements OnInit {
   constructor(private authService: AuthService,
               private consultaService: ConsultaService,
               private matDialog: MatDialog,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService,
+              private router: Router,) {}
 
   ngOnInit(){
     this.userFullname = this.authService.getUserName()
@@ -65,6 +67,11 @@ export class ConsultaReadComponent implements OnInit {
         this.getConsultasList()
       }
     )
+  }
+
+  logout():void{
+    this.authService.logout()
+    this.router.navigate(['/login'])
   }
   
 }

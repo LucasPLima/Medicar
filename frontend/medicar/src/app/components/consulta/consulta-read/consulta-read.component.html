@@ -4,11 +4,9 @@
       <app-simple-header></app-simple-header>
       <div>
         <span style="margin-right: 15px;">{{userFullname}}</span>
-        <a routerLink="/login">
-          <span>
-            Desconectar
-          </span>
-        </a>
+        <button mat-flat-button class="secondary action" (click)="logout()">
+          Desconectar
+        </button>
       </div>
     </div>
   </div>
