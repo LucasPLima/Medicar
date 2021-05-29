@@ -29,6 +29,8 @@ export class ConsultaService {
       const errorObject = Object.keys(responseError)[0]
       const messageError= responseError[errorObject][0]
       this.notificationService.showWarningMsg(messageError)
+    }else if(status.charAt(0)==='5'){
+      this.notificationService.showErrorMsg("Erro interno no servidor.")
     }else{
       this.notificationService.showErrorMsg("Erro de comunicação com o servidor.")
     }
@@ -60,8 +62,8 @@ export class ConsultaService {
                                             catchError((e)=>this.errorHandler(e))
                                           )
   }
-  getAgendas():Observable<Agenda[]>{
-    return this.http.get<Agenda[]>(`${environment.apiURL}/agendas/`,
+  getAgendas(medicoId:string):Observable<Agenda[]>{
+    return this.http.get<Agenda[]>(`${environment.apiURL}/agendas?medico=${medicoId}`,
                                           {headers:{"Authorization":`Token ${this.authService.getToken()}` }})
                                           .pipe(
                                             map((obj)=>obj),

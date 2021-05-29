@@ -56,13 +56,10 @@ export class ConsultaCreateComponent implements OnInit {
   getMedicoAgendas():void {
     this.agendas = []
     this.horarios = []
-    this.consultaService.getAgendas()
+    this.consultaService.getAgendas(this.consultaForm.medico_id)
                         .subscribe(
-                          (agendas) => {
-                            let medicoAgendas = agendas.filter((agenda) => 
-                                                                agenda.medico.id === this.consultaForm.medico_id
-                                                               )
-                            this.agendas = medicoAgendas
+                          (agendasMedico) => {
+                            this.agendas = agendasMedico
                           }
                         )
   }
