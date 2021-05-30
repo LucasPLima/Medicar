@@ -1,10 +1,12 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework.permissions import IsAuthenticated
-from django.utils import timezone
+from datetime import date, datetime
+from django.core.exceptions import BadRequest
 
 from .models import Consulta, Horario
-from .serializers import ConsultaSerializer, ConsultaPostSerializer, ConsultaDestroySerializer
+from .serializers import ConsultaSerializer
 
 # Create your views here.
 class ConsultaViewSet(viewsets.ViewSet):
@@ -16,12 +18,13 @@ class ConsultaViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        serializer = ConsultaPostSerializer(data=request.data, context={'request': request})
+        serializer = ConsultaSerializer(data=request.data, context={'request': request})
         data={}
         if serializer.is_valid(raise_exception=True):
             consulta = serializer.save()
             consulta_qs = Consulta.objects.get(id=consulta.id)
             consulta_serializer = ConsultaSerializer(consulta_qs)
+
             data = consulta_serializer.data
         else:
             data = serializer.errors
@@ -29,18 +32,20 @@ class ConsultaViewSet(viewsets.ViewSet):
         return Response(data=data, status= status.HTTP_201_CREATED)
 
     def destroy(self, request, pk):
-        data = {}
-        data['consulta_id'] = pk
-        serializer = ConsultaDestroySerializer(data=data, context={'request': request})
+        try:
+            horario_atual = datetime.now().time()
+            consulta = Consulta.objects.get(pk=pk, usuario__username=request.user)
 
-        data = {}
-        if serializer.is_valid(raise_exception=True):
-            consulta_id = pk
-            consulta = Consulta.objects.get(pk=consulta_id, usuario__username= request.user)
+            if consulta.agenda.dia == date.today():
+                if consulta.horario.hora < horario_atual:
+                    return Response({'consulta':['Não é possível desmarcar uma consulta que já aconteceu!']}, status= status.HTTP_400_BAD_REQUEST)
+            elif  consulta.agenda.dia < date.today():
+                return Response({'consulta':['Não é possível desmarcar uma consulta que já aconteceu!']}, status= status.HTTP_400_BAD_REQUEST)
         
             up = Horario.objects.filter(pk=consulta.horario.id).update(marcado=False)
             consulta.delete()
-        else:
-            data = serializer.errors
 
-        return Response(data, status= status.HTTP_204_NO_CONTENT) 
+        except Consulta.DoesNotExist:
+            return Response({'consulta':['Consulta inexistente ou não cadastrada para este usuário!']}, status= status.HTTP_400_BAD_REQUEST)
+        
+        return Response({}, status= status.HTTP_204_NO_CONTENT)

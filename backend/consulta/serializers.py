@@ -9,48 +9,40 @@ from rest_framework import serializers
 
 
 class ConsultaSerializer(serializers.ModelSerializer):
-    medico = MedicoSerializer()
-    dia =  serializers.DateField(source='agenda.dia', format='%d/%m/%Y')
+    agenda_id = serializers.IntegerField(required=False)
+    medico = MedicoSerializer(required=False)
+    dia =  serializers.DateField(source='agenda.dia', format='%d/%m/%Y', required=False)
     horario = serializers.TimeField(source='horario.hora')
-    data_agendamento = serializers.DateField(format='%d/%m/%Y')
-    class Meta:
-        model = Consulta
-        fields = ['id','dia','horario','data_agendamento','medico']
+    data_agendamento = serializers.DateField(format='%d/%m/%Y', required=False)
     
+    def validate_agenda_id(self, value):
+        try:
+            agenda = Agenda.objects.get(id=value)
+            if agenda.dia < date.today():
+                raise serializers.ValidationError({'agenda':'Data da agenda indicada anterior a data atual!'})
 
-class ConsultaPostSerializer(serializers.Serializer):
-    agenda_id = serializers.IntegerField()
-    horario = serializers.TimeField()
+        except Agenda.DoesNotExist:
+            raise serializers.ValidationError({'agenda':'Agenda solicitada inexistente!'})
+        
+        return value
 
     def validate(self, data):
-        def validate_agenda(data):
-            try:
-                agenda = Agenda.objects.get(id=data['agenda_id'])
-                if agenda.dia < date.today():
-                    raise serializers.ValidationError({'agenda':'Data da agenda indicada anterior a data atual!'})
-
-            except Agenda.DoesNotExist:
-                raise serializers.ValidationError({'agenda':'Agenda solicitada inexistente!'})
-
-        def validate_horario(data):
-            try:
-                agenda = Agenda.objects.get(id=data['agenda_id'])
-                horario = Horario.objects.get(agenda__id=data['agenda_id'], hora=data['horario'])
-                
-                if (agenda.dia == date.today()) & (horario.hora < timezone.localtime(timezone.now()).time()):
-                    raise serializers.ValidationError({'horario':'Horário solicitado menor do que o horário atual!'})    
-                if horario.marcado == True:
-                    raise serializers.ValidationError({'horario':'Horário solicitado já foi marcado!'})    
-            except Horario.DoesNotExist:
-                raise serializers.ValidationError({'horario':'Horário solicitado não existe!'})
+        try:
+            agenda = Agenda.objects.get(id=data['agenda_id'])
+            horario = Horario.objects.get(agenda__id=data['agenda_id'], hora=data['horario']['hora'])
+            
+            if (agenda.dia == date.today()) & (horario.hora < timezone.localtime(timezone.now()).time()):
+                raise serializers.ValidationError({'horario':'Horário solicitado menor do que o horário atual!'})    
+            if horario.marcado == True:
+                raise serializers.ValidationError({'horario':'Horário solicitado já foi marcado!'})    
+        except Horario.DoesNotExist:
+            raise serializers.ValidationError({'horario':'Horário solicitado não existe!'})
         
-        validate_agenda(data)
-        validate_horario(data)
         return data
-
+    
     def save(self):
         agenda_id = self.validated_data['agenda_id']
-        horario_req = self.validated_data['horario']
+        horario_req = self.validated_data['horario']['hora']
         
         agenda = Agenda.objects.get(id=agenda_id)
         medico = agenda.medico
@@ -63,25 +55,8 @@ class ConsultaPostSerializer(serializers.Serializer):
         consulta.save()
         
         return consulta
+    class Meta:
+        model = Consulta
+        fields = ['id','dia','horario','data_agendamento','medico','agenda_id']
 
-
-class ConsultaDestroySerializer(serializers.Serializer):
-    consulta_id = serializers.IntegerField()
-
-    def validate(self, data):
-        try:
-            horario_atual = datetime.now().time()
-            consulta = Consulta.objects.get(pk=data['consulta_id'], usuario__username=self.context['request'].user)
-
-            if consulta.agenda.dia == date.today():
-                if consulta.horario.hora < horario_atual:
-                    raise serializers.ValidationError({'consulta':'Não é possível desmarcar uma consulta que já aconteceu!'})
-            elif  consulta.agenda.dia < date.today():
-                raise serializers.ValidationError({'consulta':'Não é possível desmarcar uma consulta que já aconteceu!'})
-
-            return data    
-
-        except Consulta.DoesNotExist:
-            raise serializers.ValidationError({'consulta':'Consulta inexistente ou não cadastrada para este usuário!'})
-        
 
