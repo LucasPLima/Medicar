@@ -9,13 +9,13 @@ class AgendaCustomManager(models.Manager):
 
 class HorarioCustomManager(models.Manager):
     def disponiveis(self):
-        hora_atual = timezone.localtime(timezone.now())
+        hora_atual = timezone.localtime(timezone.now()).time()
         hora_padrao = datetime.strptime('00:00', '%H:%M')
         
         return super().get_queryset().filter(
                                 (
                                   Q(agenda__dia=date.today(), 
-                                   hora__gte=hora_atual) 
+                                   hora__gt= hora_atual) 
                                   | Q(agenda__dia__gt=date.today(),
                                     hora__gte=hora_padrao)
                                 ), 

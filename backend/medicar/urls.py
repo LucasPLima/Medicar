@@ -28,7 +28,7 @@ from consulta.views import ConsultaViewSet
 router = routers.DefaultRouter()
 router.register(r'especialidades', EspecialidadeViewSet)
 router.register(r'medicos', MedicoViewSet)
-router.register(r'agendas', AgendaViewSet)
+router.register(r'agendas', AgendaViewSet, basename="agendas")
 router.register(r'consultas', ConsultaViewSet, basename="consultas")
 #router.register(r'usuario/registrar', usuario_views.UserRegistrationAPIView.as_view())
 
