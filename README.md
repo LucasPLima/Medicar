@@ -71,9 +71,6 @@ A única mudança feita foi realizada no ato de criar um usuário. A rota contin
 
 >O *body* teve que ser alterado para que o nome fosse retornado ao logar na aplicação.
  
- ### Observações
- Ao ser publicada no  [Heroku](https://www.heroku.com/), as validações de fuso horário podem apresentar um problema, devido a localização do servidor ser nos Estados Unidos. Para os testes com a API publicada, deve-se levar em conta a diferença de **+3 horas** em relação ao nosso horário local.
-
 
 ## Frontend - Angular
 
