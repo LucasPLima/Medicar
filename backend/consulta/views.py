@@ -18,7 +18,7 @@ class ConsultaViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = ConsultaPostSerializer(data=request.data, context={'request': request})
         data={}
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             consulta = serializer.save()
             consulta_qs = Consulta.objects.get(id=consulta.id)
             consulta_serializer = ConsultaSerializer(consulta_qs)
